@@ -1,2 +1,2 @@
-# SchemeCompiler
-This is a Scheme Compiler based on the lecture of Mir. Gittinger
+# HbScheme
+This is a Scheme Compiler based on the lecture of Mr. Gittinger

@@ -9,5 +9,3 @@ This is a Scheme interpreter whiche is based on the lecture of Mr. Gittinger at 
   Compile - GCC
   Continues Integegration - Jenkins
   Editor - C-Lion
- 
- 

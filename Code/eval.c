@@ -1,6 +1,12 @@
-//
-// Created by Hannes on 13.12.2016.
-//
+/*
+ * Eval
+ *
+ * Author:       Hannes Buchwald
+ * Version:      0.0.1
+ * Last edit:    05.02.2017
+*/
+
+
 #include <stdlib.h>
 #include "hbscheme.h"
 

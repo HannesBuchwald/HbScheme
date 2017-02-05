@@ -5,6 +5,15 @@
 #include "hbscheme.h"
 
 
+/*
+ * Reader
+ *
+ * Author:       Hannes Buchwald
+ * Version:      0.0.1
+ * Last edit:    05.02.2017
+*/
+
+
 char *inputString(FILE* fp, size_t size){
 //The size is extended by the input with the value of the provisional
     char *str;

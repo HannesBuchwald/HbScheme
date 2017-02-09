@@ -9,7 +9,7 @@
 
 
 # Set cmake requrements
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.6)
 
 # Project Name
 project(mySchemeInterpreter)

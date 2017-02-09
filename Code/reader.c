@@ -1,8 +1,3 @@
-//
-// Created by Hannes on 12.12.2016.
-//
-#include <stdlib.h>
-#include "hbscheme.h"
 
 
 /*
@@ -10,33 +5,38 @@
  *
  * Author:       Hannes Buchwald
  * Version:      0.0.1
- * Last edit:    05.02.2017
+ * Last edit:    09.02.2017
 */
 
 
-char *inputString(FILE* fp, size_t size){
-//The size is extended by the input with the value of the provisional
-    char *str;
-    int ch;
-    size_t len = 0;
-    str = realloc(NULL, sizeof(char)*size);//size is start size
-    if(!str)return str;
-    while(EOF!=(ch=fgetc(fp)) && ch != '\n'){
-        str[len++]=ch;
-        if(len==size){
-            str = realloc(str, sizeof(char)*(size+=16));
-            if(!str)return str;
+
+
+#include <stdlib.h>
+#include "hbscheme.h"
+#include <string.h>
+
+
+
+
+// check String
+char readString(OBJ o) {
+
+    if(o->u.fileStream.tag == T_FILESTREAM) {
+
+        if(strchr(o->u.fileStream.string, 'exit')) {
+            scm_print_Close();
+            exit(0);
         }
     }
-    str[len++]='\0';
-    return realloc(str, sizeof(char)*len);
 }
 
 
-OBJ scm_read(OBJ inStream) {
+// Pack inputstring and inputsize in OBJ
+OBJ scm_readt(OBJ o, char* buffer, size_t character){
 
-    char *input = inputString(inStream->u.fileStream.file, inStream->u.fileStream.size_t);
-    inStream->u.fileStream.string = input;
+    o->u.fileStream.string = buffer;
+    o->u.fileStream.size_t = character;
 
-    return inStream;
-}
+    readString(o);
+    return o;
+};

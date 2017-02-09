@@ -15,12 +15,30 @@
 // Add the inputStream as a File (the inputStream is not evaluated now)
 // Add tags as T_FILESTREAM
 
-OBJ newFileStream(FILE *file, size_t size) {
-    struct schemeFileStream *theStream;
+OBJ newFileStream(FILE *file) {
 
-    theStream = (struct schemeFileStream *)(malloc( sizeof(struct schemeFileStream)));
+
+    if( file == NULL) {
+        perror("Unable to allocate buffer");
+        exit(1);
+    }
+
+    struct schemeFileStream *theStream;
+    theStream = (struct schemeFileStream * )(malloc( sizeof(struct schemeFileStream)));
     theStream -> tag = T_FILESTREAM;
     theStream -> file = file;
-    theStream -> size_t = size;
+
+    return (OBJ)theStream;
+}
+
+
+OBJ newString() {
+
+
+    struct schemeFileStream *theStream;
+    theStream = (struct schemeFileStream * )(malloc(32 * sizeof(char)));
+    theStream -> tag = T_FILESTREAM;
+    theStream -> string = "";
+
     return (OBJ)theStream;
 }

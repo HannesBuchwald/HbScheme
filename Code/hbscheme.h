@@ -1,6 +1,10 @@
-//
-// Created by Hannes on 12.12.2016.
-//
+/*
+ * Header
+ *
+ * Author:       Hannes Buchwald
+ * Version:      0.0.1
+ * Last edit:    09.02.2017
+*/
 
 
 #include <stdio.h>
@@ -67,15 +71,21 @@ struct schemeObject {
 
 
 
-
+/* ********************* variables ******************* */
 
 
 
 
 /* ********************* method's ********************* */
-OBJ newFileStream(FILE*, size_t);
+OBJ newFileStream(FILE*);
+OBJ newString();
 OBJ scm_read(OBJ);
+
+OBJ scm_readt(OBJ, char*, size_t);
+
 OBJ eval(OBJ);
 
 
+/* ***** printer method's ******* */
 void scm_print(OBJ);
+void scm_print_Close();

@@ -4,7 +4,7 @@
  * Author:       Hannes Buchwald
  * Project:      Scheme Interpreter (University of Media)
  * Version:      0.0.1
- * Last edit:    05.02.2017
+ * Last edit:    09.02.2017
  * License:      MIT License
  *
  *
@@ -38,46 +38,30 @@
 #include "hbscheme.h"
 
 
-static jmp_buf getMeOutOfHere;
 
 
 int main() {
-    OBJ scm_input = newFileStream(stdin, 10);
+
+    printf("Welcome to hbScheme\n");
 
 
 
-    printf("Welcome to HbScheme\n");
+    char * buffer;
+    size_t bufsize = 32;
+    size_t characters;
 
+    buffer = (char *)malloc(bufsize * sizeof(char));
 
-//    if (setjmp(getMeOutOfHere) != 0) {
-//        printf("here again\n");
-//    }
-//    printf("after setjmp\n");
-
+    OBJ o = newString();
 
     for (;;) {
 
-        //
         printf("> ");
+        characters = getline(&buffer,&bufsize,stdin);
 
-        // read Input stream and store it into a char
-        OBJ o = scm_read(scm_input);
+        OBJ input = scm_readt(o, buffer, characters);
 
-        //Evaluate the input
-        OBJ rslt = eval(o);
-
-        // print out result
-        scm_print(rslt);
-
-
-        free(o);
-        free(rslt);
-
-//        printf("\n");
-//        // rslt = eval(o);
-//       // scm_print(stdout, rslt);
-//        scm_print(stdout, o);
-//        printf("\n");
+        scm_print(input);
     }
 
 

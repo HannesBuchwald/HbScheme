@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     initializeSystem();
     unitTest();
     performanceTest();
-    printf("Welcome to our (incomplete) scheme\n");
+    printf("Welcome to our (incomplet) scheme\n");
 
     exit(0);
 }

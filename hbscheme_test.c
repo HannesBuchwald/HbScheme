@@ -33,7 +33,7 @@ void unitTest() {
 	/***** a2l Test *****/
 
 	// positive test
-	ASSERT( a2l("2") == 2, "a2l error");
+	ASSERT( a2l("0") == 2, "a2l error");
 	ASSERT( a2l("1") == 1, "a2l error");
 	ASSERT( a2l("123456") == 123456, "a2l error");
 	ASSERT( a2l("999999") == 999999, "a2l error");

@@ -31,7 +31,7 @@ void unitTest() {
 	fprintf(stderr, "\n");
 
 
-	fprintf(stderr, "Start (UnitTest)\n");
+	fprintf(stderr, "**** Start (UnitTest) ****\n");
 
 
 
@@ -173,7 +173,7 @@ void unitTest() {
 	ASSERT(symx1 != symx2, "symbol identity check failed")
 
 
-	fprintf(stderr, "Done (UnitTest)\n");
+	fprintf(stderr, "**** Done (UnitTest) ****\n");
 }
 
 
@@ -189,7 +189,11 @@ void performanceTest() {
 	 *
 	 */
 
-	fprintf(stderr, "Start (PerformanceTest)\n");
+	fprintf(stderr, "\n");
+		fprintf(stderr, "\n");
+		fprintf(stderr, "\n");
+
+	fprintf(stderr, "**** Start (PerformanceTest)**** \n");
 
 	{
 		int i;
@@ -224,6 +228,6 @@ void performanceTest() {
 	}
 
 
-	fprintf(stderr, "Done (PerformanceTest)\n");
+	fprintf(stderr, "**** Done (PerformanceTest) ****\n");
 }
 

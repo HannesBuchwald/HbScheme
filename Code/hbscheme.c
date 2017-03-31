@@ -1,69 +1,34 @@
 /*
- * hbScheme
+ * main.c
  *
  * Author:       Hannes Buchwald
- * Project:      Scheme Interpreter (University of Media)
+ * Project:      hbScheme Interpreter (University of Media)
  * Version:      0.0.1
- * Last edit:    09.02.2017
- * License:      MIT License
- *
- *
- * MIT License
- * Copyright (c) [2017] [Hannes Buchwald]
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
+ * Last edit:    31.03.2017
+*/
 
 
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <setjmp.h>
 
 #include "hbscheme.h"
 
 
+static void initializeSystem() {
+    initializeSymbolTable();
+}
+
+// the program starts here
+int main(int argc, char **argv) {
+    initializeSystem();
+    unitTest();
+    performanceTest();
+    printf("Welcome to our (incomplete) scheme\n");
+
+    exit(0);
+}
 
 
-int main() {
 
-    printf("Welcome to hbScheme\n");
-
-
-
-    char * buffer;
-    size_t bufsize = 32;
-    size_t characters;
-
-    buffer = (char *)malloc(bufsize * sizeof(char));
-
-    OBJ o = newString();
-
-    for (;;) {
-
-        printf("> ");
-        characters = getline(&buffer,&bufsize,stdin);
-
-        OBJ input = scm_readt(o, buffer, characters);
-
-        scm_print(input);
-    }
-
-
-    return 0;
+void fatal(char* msg, char* fileName, int lineNr) {
+    fprintf(stderr, "%s:%d: %s\n", fileName, lineNr, msg);
+    abort();
 }

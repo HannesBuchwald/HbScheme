@@ -19,7 +19,7 @@
 ## Compiler options
 CC = clang  
 CFLAGS= -g -pedantic -Wall -std=c99
-APPLICATION = hbSheme
+APPLICATION = hbScheme
 
 
 ## Compiling files

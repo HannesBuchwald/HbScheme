@@ -6,6 +6,6 @@ This is a Scheme interpreter whiche is based on the lecture of Mr. Gittinger at 
 
 # Tooling
   Build - make
-  Compile - GCC
+  Compile - Clang
   Continues Integegration - Jenkins
-  Editor - C-Lion
+  Editor - Eclipse

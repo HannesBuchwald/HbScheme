@@ -5,7 +5,7 @@
  * Project:      hbScheme Interpreter (University of Media)
  * Version:      0.0.1
  * Last edit:    31.03.2017
-*/
+ */
 
 
 
@@ -26,13 +26,7 @@ void unitTest() {
 
 	fprintf(stderr, "\n");
 	fprintf(stderr, "\n");
-	fprintf(stderr, "\n");
-	fprintf(stderr, "\n");
-	fprintf(stderr, "\n");
-
-
 	fprintf(stderr, "**** Start (UnitTest) ****\n");
-
 
 
 
@@ -190,9 +184,6 @@ void performanceTest() {
 	 */
 
 	fprintf(stderr, "\n");
-		fprintf(stderr, "\n");
-		fprintf(stderr, "\n");
-
 	fprintf(stderr, "**** Start (PerformanceTest)**** \n");
 
 	{
@@ -229,5 +220,6 @@ void performanceTest() {
 
 
 	fprintf(stderr, "**** Done (PerformanceTest) ****\n");
+	fprintf(stderr, "\n");
 }
 

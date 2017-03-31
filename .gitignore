@@ -51,11 +51,29 @@ fabric.properties
 # cmake build files
 cmake-build-debug
 cmake_install.cmake
-
-
-
-
-
-
 Code/CMakeCache.txt
+
+
+
+# make build files
 Code/Makefile
+Code/.o
+.o
+
+
+# eclipse project files
+.project
+.cproject
+.settings
+
+Code/.project
+Code/.cproject
+Code/.settings
+
+
+
+
+
+
+
+

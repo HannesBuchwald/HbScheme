@@ -56,7 +56,6 @@ Code/CMakeCache.txt
 
 
 # make build files
-Code/Makefile
 *.o
 
 

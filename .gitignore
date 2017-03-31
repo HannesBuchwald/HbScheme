@@ -57,20 +57,14 @@ Code/CMakeCache.txt
 
 # make build files
 Code/Makefile
-Code/.o
-.o
+*.o
+
 
 
 # eclipse project files
 .project
 .cproject
 .settings
-
-Code/.project
-Code/.cproject
-Code/.settings
-
-
 
 
 

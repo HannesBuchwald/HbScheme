@@ -167,6 +167,9 @@ void unitTest() {
 	ASSERT(symx1 != symx2, "symbol identity check failed")
 
 
+
+
+
 	fprintf(stderr, "**** Done (UnitTest) ****\n");
 }
 

@@ -40,22 +40,12 @@ OBJS=hbscheme.o hbscheme_test.o \
 clean:
 	rm -f $(OBJS)
 
-
-
 ## include main header file to all files 
 $(OBJS): hbscheme.h
-
 
 ## Linking all object files togehter
 $(APPLICATION): $(OBJS)
 	$(CC) $(DEBUG_FLAGS) -o $(APPLICATION) $(OBJS)
 
-
-
-
-
-
-
-
-## run in eclipse  
+## run make with "make all"
 all: $(APPLICATION)

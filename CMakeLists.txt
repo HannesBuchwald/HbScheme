@@ -23,7 +23,7 @@ set(SOURCE_FILES
         test.c
         reader.c
         utils.c
-        eval.c printer.c)
+        eval.c printer.c constants.h printer.h eval.h)
 
 
 

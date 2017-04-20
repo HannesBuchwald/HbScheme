@@ -1,5 +1,32 @@
+/*
+ * hbscheme.c
+ *
+ * Author:       Hannes Buchwald
+ * Project:      hbScheme Interpreter (University of Media)
+ * Version:      0.0.2
+ * Last edit:    20.04.2017
+ *
+ */
+
+
+
+/**************** includes *********************/
+
+
 #include "hbscheme.h"
 #include "setjmp.h"
+
+#include "test.h"
+#include "eval.h"
+#include "environment.h"
+#include "memory.h"
+
+
+
+
+
+/**************** variables & objects *********************/
+
 
 #ifdef DEBUG
 # define DBG_PRINT(x) fprintf x
@@ -8,80 +35,79 @@
 #endif
 
 static jmp_buf getMeBackToRepl;
+SCM_OBJ input, result;
 
-SCM_OBJ SCM_NIL = NULL;
-SCM_OBJ SCM_TRUE = NULL;
-SCM_OBJ SCM_FALSE = NULL;
-SCM_OBJ SCM_VOID = NULL;
-SCM_OBJ SCM_EOF = NULL;
-SCM_OBJ SCM_quoteSymbol = NULL;
-static scm_stream stdInputStream = NULL;
 
-void
-scm_error(char* msg, SCM_OBJ optionalArg) {
-    fprintf(stderr, "%s", msg);
-    if (optionalArg != NULL) {
-        scm_print(stderr, optionalArg, PRINT_WRITE);
-    }
-    fprintf(stderr, "\n");
-    DBG_PRINT((stderr, "going back to REPL...\n"));
-    longjmp(getMeBackToRepl, 1);
-}
 
-static void
-initializeSystem() {
-    stdInputStream = new_fileStream(stdin);
-    SCM_NIL = new_nil();
-    SCM_TRUE = new_true();
-    SCM_FALSE = new_false();
-    SCM_VOID = new_void();
-    SCM_EOF = new_eof();
 
-    initializeSymbolTable();
+/**************** main function *********************/
 
-    SCM_quoteSymbol = new_symbol("quote");
 
-    initializeEvalStack();
-    initializeEnvironment();
-    initializeBuiltinFunctions();
-}
+/*
+ * called from the system
+ */
+int main() {
 
-static void
-repl() {
-    SCM_OBJ expr, rslt;
 
-    for (;;) {
-        fprintf(stdout, "> "); // fflush(stdout);
-        expr = scm_read(stdInputStream);
-        rslt = scm_eval(expr);
-        if (! isVoid(rslt)) {
-            scm_print(stdout, rslt, PRINT_WRITE);
-            fprintf(stdout, "\n");
-        }
-    }
-}
+    // init and test the system
+    init();
+    unitTests();
 
-int
-main() {
-    initializeSystem();
 
-    printf("Welcome to our (incomplete) scheme\n");
-    scm_selftest();
+    // user interaction
+    printf("Welcome to hbScheme\n");
 
-    // -----
+
+
 
     if (setjmp(getMeBackToRepl)) {
         DBG_PRINT((stderr, "back in REPL.\n"));
     } else {
         DBG_PRINT(("after setjmp.\n"));
     }
-    repl();
 
+
+    // create new fileStream which is listen to commandline input
+    scm_stream stdInputStream = new_fileStream(stdin);
+
+    // forever loop
+    for (;;) {
+        fprintf(stdout, "> ");
+        input = scm_read(stdInputStream);
+        result = scm_eval(input);
+        if (! isVoid(result)) {
+            scm_print(stdout, result, PRINT_WRITE);
+            fprintf(stdout, "\n");
+        }
+    }
+
+    // never reach
     exit(0);
 }
 
-void
-fatal(char* msg, char* fileName, int lineNr) {
-    fprintf(stderr, "%s:%d: %s\n", fileName, lineNr, msg);
-    abort();
+
+
+
+
+// called from eval
+void backToRepl() {
+    DBG_PRINT((stderr, "going back to REPL...\n"));
+    longjmp(getMeBackToRepl, 1);
+}
+
+
+
+
+
+
+/**************** local function *********************/
+
+/*
+ * init the system
+ */
+void init() {
+    initSymbolTable();
+    initEnvironment();
+    initEvalStack();
+    initBuiltinFunctions();
 }

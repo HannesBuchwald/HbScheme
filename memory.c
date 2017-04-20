@@ -1,6 +1,29 @@
 #include "hbscheme.h"
+#include "memory.h"
+
 
 #define USE_REAL_HASH
+
+
+
+static SCM_OBJ *symbolTable = NULL;
+static int symbolTableSize = 0;
+static int numKnownSymbols = 0;
+
+
+
+
+void initSymbolTable() {
+    symbolTable = (SCM_OBJ *)malloc(sizeof(SCM_OBJ) * INITIAL_SYMBOLTABLE_SIZE);
+    symbolTableSize = INITIAL_SYMBOLTABLE_SIZE;
+    numKnownSymbols = 0;
+    memset(symbolTable, 0, (sizeof(SCM_OBJ) * INITIAL_SYMBOLTABLE_SIZE));
+}
+
+
+
+
+
 
 SCM_OBJ
 new_userDefinedFunction(SCM_OBJ argList, SCM_OBJ bodyList) {
@@ -21,8 +44,7 @@ new_builtinFunc(VOIDFUNC funcPtr) {
     return o;
 }
 
-SCM_OBJ
-new_builtinSyntax(VOIDFUNC syntaxPtr) {
+SCM_OBJ new_builtinSyntax(VOIDFUNC syntaxPtr) {
     SCM_OBJ o = (SCM_OBJ)malloc(sizeof(struct scm_builtinSyntax));
 
     o->scm_builtinSyntax.tag = TAG_BUILTINSYNTAX;
@@ -66,11 +88,6 @@ really_a_new_symbol(char* chars) {
     return o;
 }
 
-#define INITIAL_SYMBOLTABLE_SIZE    1009
-
-static SCM_OBJ *symbolTable = NULL;
-static int symbolTableSize = 0;
-static int numKnownSymbols = 0;
 
 static inline long
 H(char *cp) {
@@ -85,16 +102,9 @@ H(char *cp) {
     return(hVal);
 }
 
-void
-initializeSymbolTable() {
-    symbolTable = (SCM_OBJ *)malloc(sizeof(SCM_OBJ) * INITIAL_SYMBOLTABLE_SIZE);
-    symbolTableSize = INITIAL_SYMBOLTABLE_SIZE;
-    numKnownSymbols = 0;
-    memset(symbolTable, 0, (sizeof(SCM_OBJ) * INITIAL_SYMBOLTABLE_SIZE));
-}
 
-static void
-growSymbolTable() {
+
+static void growSymbolTable() {
     int newSize = (symbolTableSize * 2) + 1;
     SCM_OBJ *newTable = (SCM_OBJ *)malloc(sizeof(SCM_OBJ) * newSize);
     int i;
@@ -213,8 +223,7 @@ new_symbol(char* chars) {
     return existingSymbol;
 }
 
-SCM_OBJ
-new_string(char* chars) {
+SCM_OBJ new_string(char* chars) {
     int len = (int) strlen(chars);
 
     unsigned int nBytes = sizeof(struct scm_string)

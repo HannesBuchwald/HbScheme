@@ -1,10 +1,10 @@
 /*
- * main.h
+ * hbscheme.h
  *
  * Author:       Hannes Buchwald
  * Project:      hbScheme Interpreter (University of Media)
- * Version:      0.0.1
- * Last edit:    31.03.2017
+ * Version:      0.0.2
+ * Last edit:    20.04.2017
 */
 
 
@@ -12,10 +12,46 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef int CBOOL;
+
+#include "printer.h"
+
+
+
+
+/**************** definitions *********************/
+
+#define FATAL(msg) fatal(msg, __FILE__, __LINE__)
+
+#define ASSERT(cond, msg) ASSERT2(cond, msg, __FILE__, __LINE__)
+
+#define ASSERT2(cond, msg, fileName, lineNr) \
+    if (! (cond) ) { \
+	fprintf(stderr, "%s:%d assertion failed: %s", \
+			fileName, lineNr, msg); \
+	abort(); \
+    }
+
+#define ASSERT_SYMBOL(obj) \
+    ASSERT2(isSymbol(obj), "not a symbol", __FILE__, __LINE__)
+
+#define ASSERT_CONS(obj) \
+    ASSERT2(isCons(obj), "not a cons", __FILE__, __LINE__)
+
+#define ASSERT_TAG(obj,t) \
+    ASSERT2(hasTag(obj,t), "unexpected tag", __FILE__, __LINE__)
+
+
+
 #define C_TRUE      1
 #define C_FALSE     0
 
+
+
+
+/**************** type definition *********************/
+
+
+typedef int CBOOL;
 typedef int SCM_CHAR;
 typedef union scm_object *SCM_OBJ;
 typedef SCM_OBJ (*SCM_OBJFUNC)();
@@ -125,16 +161,10 @@ struct scm_stream_struct {
 };
 typedef struct scm_stream_struct* scm_stream;
 
-#define FATAL(msg) fatal(msg, __FILE__, __LINE__)
 
-#define ASSERT(cond, msg) ASSERT2(cond, msg, __FILE__, __LINE__)
 
-#define ASSERT2(cond, msg, fileName, lineNr) \
-    if (! (cond) ) { \
-	fprintf(stderr, "%s:%d assertion failed: %s", \
-			fileName, lineNr, msg); \
-	abort(); \
-    }
+
+
 
 //
 // wellknown objects
@@ -246,14 +276,9 @@ cdr(SCM_OBJ obj) {
 }
 
 
-#define ASSERT_SYMBOL(obj) \
-    ASSERT2(isSymbol(obj), "not a symbol", __FILE__, __LINE__)
 
-#define ASSERT_CONS(obj) \
-    ASSERT2(isCons(obj), "not a cons", __FILE__, __LINE__)
 
-#define ASSERT_TAG(obj,t) \
-    ASSERT2(hasTag(obj,t), "unexpected tag", __FILE__, __LINE__)
+
 
 //
 // function definitions
@@ -269,26 +294,42 @@ enum printHowEnum {
 };
 
 extern void scm_print(FILE*, SCM_OBJ, enum printHowEnum);
-extern SCM_OBJ scm_eval(SCM_OBJ expr);
-
-extern SCM_OBJ get_binding(SCM_OBJ key);
-extern void add_binding(SCM_OBJ key, SCM_OBJ value);
 
 extern SCM_OBJ new_integer();
-extern SCM_OBJ new_symbol(char *), new_string(char *);
+extern SCM_OBJ new_symbol(char *);
+extern SCM_OBJ new_string(char *);
 extern SCM_OBJ new_cons(SCM_OBJ theCar, SCM_OBJ theCdr);
-extern SCM_OBJ new_true(), new_false(), new_nil(), new_eof(), new_void();
+extern SCM_OBJ new_true();
+extern SCM_OBJ new_false();
+
+extern SCM_OBJ new_eof();
+extern SCM_OBJ new_void();
 extern SCM_OBJ new_builtinFunc(VOIDFUNC);
 extern SCM_OBJ new_builtinSyntax(VOIDFUNC);
 extern SCM_OBJ new_userDefinedFunction(SCM_OBJ, SCM_OBJ);
 
-extern void scm_error(char*, SCM_OBJ);
 
-extern void initializeSymbolTable(),
-        initializeEnvironment(),
-        initializeBuiltinFunctions(),
-        initializeEvalStack();
-extern void scm_selftest();
-extern void fatal(char* msg, char* fileName, int lineNr);
+//ToDo move above to memory.h
+
+
+
+
+
 extern long a2l(char *);
 extern long millisecondTime();
+
+
+
+/**************** global functions *********************/
+
+
+void backToRepl();
+
+
+
+
+/**************** local functions *********************/
+
+void init();
+
+

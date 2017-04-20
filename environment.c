@@ -1,22 +1,136 @@
+/*
+ * environment.c
+ *
+ * Author:       Hannes Buchwald
+ * Project:      hbScheme Interpreter (University of Media)
+ * Version:      0.0.2
+ * Last edit:    20.04.2017
+ *
+ */
+
+
+
+
+/**************** includes *********************/
+
 #include "hbscheme.h"
+#include "environment.h"
+#include "memory.h"
 
-#define INITIAL_ENVIRONMENT_SIZE    3
 
-struct tableEntry {
-    SCM_OBJ key;
-    SCM_OBJ value;
-};
 
-struct environment {
-    int numSlotsInUse;
-    int numSlotsAllocated;
-    struct tableEntry entries[1];
-};
+/**************** variables & objects *********************/
 
 struct environment* environment = NULL;
 
-static struct environment*
-allocateEnvironment(int size) {
+SCM_OBJ SCM_NIL = NULL;
+SCM_OBJ SCM_TRUE = NULL;
+SCM_OBJ SCM_FALSE = NULL;
+SCM_OBJ SCM_VOID = NULL;
+SCM_OBJ SCM_EOF = NULL;
+SCM_OBJ SCM_quoteSymbol = NULL;
+
+
+
+
+
+/**************** global functions *********************/
+
+
+
+
+/** init functions **/
+
+void initEnvironment() {
+    environment = allocateEnvironment(INITIAL_ENVIRONMENT_SIZE);
+
+    initWellKnownObjects();
+}
+
+void initWellKnownObjects() {
+    SCM_NIL = new_nil();
+    SCM_TRUE = new_true();
+    SCM_FALSE = new_false();
+    SCM_VOID = new_void();
+    SCM_EOF = new_eof();
+    SCM_quoteSymbol = new_symbol("quote"); //?
+
+}
+
+
+
+
+
+/** binding functions **/
+
+void add_binding(SCM_OBJ theKey, SCM_OBJ newValue) {
+    int i0, idx;
+    struct tableEntry *entryPtr;
+
+    i0 = idx = (int)( H(theKey) % environment->numSlotsAllocated);
+    for (;;) {
+        entryPtr = &(environment->entries[idx]);
+        if (entryPtr->key == NULL) {
+            entryPtr->key = theKey;
+            entryPtr->value = newValue;
+            environment->numSlotsInUse++;
+            if (environment->numSlotsInUse > (environment->numSlotsAllocated * 3 / 4)) {
+                resizeEnvironment();
+            }
+            return;
+        }
+        if (entryPtr->key == theKey) {
+            entryPtr->value = newValue;
+            return;
+        }
+
+        idx = (idx + 1) % environment->numSlotsAllocated;
+        if (idx == i0) {
+            FATAL("cannot happen");
+        }
+    }
+
+    FATAL("unimpl.");
+}
+
+
+SCM_OBJ get_binding(SCM_OBJ searchedKey) {
+    int i0, idx;
+    struct tableEntry *entryPtr;
+
+    ASSERT(isSymbol(searchedKey), "non-symbol key");
+
+    // fprintf(stdout, "the searchedKey is %s {%p}\n", symbolValue(searchedKey), searchedKey);
+
+    i0 = idx = (int)( H(searchedKey) % environment->numSlotsAllocated );
+    for (;;) {
+        entryPtr = &(environment->entries[idx]);
+        if (entryPtr->key == searchedKey) {
+            return (entryPtr->value);
+        }
+        if (entryPtr->key == NULL) {
+            return NULL;
+        }
+        idx = (idx+1) % environment->numSlotsAllocated;
+        if (idx == i0) {
+            FATAL("cannot happen");
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+/**************** local functions *********************/
+
+
+
+static struct environment* allocateEnvironment(int size) {
     unsigned int numBytes;
     struct environment* newEnv;
 
@@ -30,13 +144,8 @@ allocateEnvironment(int size) {
     return newEnv;
 }
 
-static inline unsigned long
-H(SCM_OBJ o) {
-    return (unsigned long)o;
-}
 
-void
-resizeEnvironment() {
+void resizeEnvironment() {
     int oldIdx, oldSize, newSize;
     struct environment *newEnvironment;
 
@@ -72,63 +181,8 @@ resizeEnvironment() {
     environment = newEnvironment;
 }
 
-void
-initializeEnvironment() {
-    environment = allocateEnvironment(INITIAL_ENVIRONMENT_SIZE);
-}
 
-void
-add_binding(SCM_OBJ theKey, SCM_OBJ newValue) {
-    int i0, idx;
-    struct tableEntry *entryPtr;
 
-    i0 = idx = (int)( H(theKey) % environment->numSlotsAllocated);
-    for (;;) {
-        entryPtr = &(environment->entries[idx]);
-        if (entryPtr->key == NULL) {
-            entryPtr->key = theKey;
-            entryPtr->value = newValue;
-            environment->numSlotsInUse++;
-            if (environment->numSlotsInUse > (environment->numSlotsAllocated * 3 / 4)) {
-                resizeEnvironment();
-            }
-            return;
-        }
-        if (entryPtr->key == theKey) {
-            entryPtr->value = newValue;
-            return;
-        }
-
-        idx = (idx + 1) % environment->numSlotsAllocated;
-        if (idx == i0) {
-            FATAL("cannot happen");
-        }
-    }
-
-    FATAL("unimpl.");
-}
-
-SCM_OBJ
-get_binding(SCM_OBJ searchedKey) {
-    int i0, idx;
-    struct tableEntry *entryPtr;
-
-    ASSERT(isSymbol(searchedKey), "non-symbol key");
-
-    // fprintf(stdout, "the searchedKey is %s {%p}\n", symbolValue(searchedKey), searchedKey);
-
-    i0 = idx = (int)( H(searchedKey) % environment->numSlotsAllocated );
-    for (;;) {
-        entryPtr = &(environment->entries[idx]);
-        if (entryPtr->key == searchedKey) {
-            return (entryPtr->value);
-        }
-        if (entryPtr->key == NULL) {
-            return NULL;
-        }
-        idx = (idx+1) % environment->numSlotsAllocated;
-        if (idx == i0) {
-            FATAL("cannot happen");
-        }
-    }
+static inline unsigned long H(SCM_OBJ o) {
+    return (unsigned long)o;
 }

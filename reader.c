@@ -1,4 +1,6 @@
 #include "hbscheme.h"
+#include "printer.h"
+#include "memory.h"
 
 #define EOF_CHAR    ((SCM_CHAR)-1)
 #define INITIAL_BUFFER_SIZE 32
@@ -155,8 +157,7 @@ a2l(char *cp) {
 }
 
 
-SCM_OBJ
-scm_readFromCString(char* input) {
+SCM_OBJ scm_readFromCString(char* input) {
     return scm_read( new_stringStream(input) );
 }
 
@@ -210,8 +211,7 @@ scm_readString(scm_stream inStream) {
     }
 }
 
-SCM_OBJ
-scm_read(scm_stream inStream) {
+SCM_OBJ scm_read(scm_stream inStream) {
     buffer b;
     SCM_CHAR nextChar;
     char *inputToken;

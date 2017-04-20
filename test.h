@@ -1,37 +1,36 @@
-//
-// Created by admin on 08.04.17.
-//
+/*
+ * test.h
+ *
+ * Author:       Hannes Buchwald
+ * Project:      hbScheme Interpreter (University of Media)
+ * Version:      0.0.2
+ * Last edit:    20.04.2017
+*/
+
+
+/******* definitions ********/
 
 
 
+/******* global functions ********/
 
 
-
-#define ASSERT(cond, msg) ASSERT2(cond, msg, __FILE__, __LINE__)
-#define ASSERT2(cond, msg, fileName, lineNr) \
-    if (! (cond) ) { \
-	fprintf(stderr, "%s:%d assertion failed: %s", \
-			fileName, lineNr, msg); \
-	abort(); \
-    }
-
-
-
-
-
-/*******  global functions ********/
-
-extern void test();
-
-
-
+void unitTests();
+void breakpoint();
 
 
 
 /******* local functions ***********/
 
-void unitTests();
-void a2lTest(char *input);
+static void a2lTest();
+static void constsTest();
+static void readTest();
+static void environmentTest();
+static void evalTest();
+static void functionTest();
+static void syntaxTest();
+static void symbolTableTest();
+
 
 
 

@@ -1,4 +1,5 @@
 #include "hbscheme.h"
+#include "printer.h"
 
 static void
 scm_printListRest(FILE* outFile, SCM_OBJ theCons, enum printHowEnum printHow) {
@@ -91,4 +92,13 @@ scm_print(FILE* outFile, SCM_OBJ o, enum printHowEnum printHow) {
             break;
 
     }
+}
+
+
+
+
+
+void fatal(char* msg, char* fileName, int lineNr) {
+    fprintf(stderr, "%s:%d: %s\n", fileName, lineNr, msg);
+    abort();
 }

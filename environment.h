@@ -1,6 +1,12 @@
-//
-// Created by admin on 08.04.17.
-//
+/*
+ * environment.h
+ *
+ * Author:       Hannes Buchwald
+ * Project:      hbScheme Interpreter (University of Media)
+ * Version:      0.0.2
+ * Last edit:    20.04.2017
+ *
+ */
 
 #ifndef HBSCHEME_ENVIRONMENT_H
 #define HBSCHEME_ENVIRONMENT_H
@@ -8,25 +14,46 @@
 #endif //HBSCHEME_ENVIRONMENT_H
 
 
-#define ENVIRONMENT_SIZE    3
+
+/**************** constants *********************/
+
+#define INITIAL_ENVIRONMENT_SIZE    3
 
 
 
+
+/**************** structs *********************/
 
 struct tableEntry {
-    OBJ key;
-    OBJ value;
+    SCM_OBJ key;
+    SCM_OBJ value;
 };
 
 struct environment {
-    int numberOfUsedSlots;
-    int numberOfAllocatedSlots;
+    int numSlotsInUse;
+    int numSlotsAllocated;
     struct tableEntry entries[1];
 };
 
 
 
-struct environment *allocateEnvironment(int size);
 
+/**************** local functions *********************/
+
+static struct environment* allocateEnvironment(int size);
+void resizeEnvironment();
+
+
+static inline unsigned long H(SCM_OBJ o);
+
+
+/**************** global functions *********************/
 
 void initEnvironment();
+void initWellKnownObjects();
+
+SCM_OBJ get_binding(SCM_OBJ key);
+void add_binding(SCM_OBJ key, SCM_OBJ value);
+
+
+

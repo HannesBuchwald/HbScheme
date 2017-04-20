@@ -10,20 +10,20 @@
 #           Editable options             #
 ###########################################
 
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.7)
 project(hbScheme)
 
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_C_FLAGS"-g -pedantic -Wall -std=c99")
 
 
 set(SOURCE_FILES
         hbscheme.c
-        hbscheme_test.c
-        Makefile
         memory.c
+        environment.c
+        test.c
         reader.c
-        utils.c)
+        utils.c
+        )
 
 
 

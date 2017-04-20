@@ -10,18 +10,29 @@
 
 
 #include "hbscheme.h"
+#include "memory.h"
+#include "environment.h"
+#include "reader.h"
+#include "test.h"
 
 
-static void initializeSystem() {
-    initializeSymbolTable();
-}
 
-// the program starts here
+
+/******* local variable definition **********/
+static stream inputStream = NULL;
+
+
+
+/******* main *********/
+
 int main(int argc, char **argv) {
-    initializeSystem();
-    unitTest();
-    performanceTest();
-    printf("Welcome to our (incomplet) scheme\n");
+
+    init();
+
+    // Welcome text
+    printf("Welcome to hbScheme (developer state) \n");
+
+    test();
 
 
     exit(0);
@@ -29,7 +40,20 @@ int main(int argc, char **argv) {
 
 
 
-void fatal(char* msg, char* fileName, int lineNr) {
-    fprintf(stderr, "%s:%d: %s\n", fileName, lineNr, msg);
-    abort();
+
+
+
+
+/******* functions *********/
+
+
+
+/*
+ * Init the system
+ */
+void init() {
+    initSymbolTable();
+    initEnvironment();
+    inputStream = newFileStream(stdin);
 }
+

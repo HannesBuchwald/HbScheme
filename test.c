@@ -8,14 +8,22 @@
 */
 
 
+/**************** includes *********************/
+
+
 #include "hbscheme.h"
 #include "test.h"
 #include "environment.h"
 #include "eval.h"
 #include "memory.h"
+#include "reader.h"
+#include "utilities.h"
 
 
 
+
+
+/**************** global function *********************/
 
 void unitTests() {
 
@@ -35,6 +43,10 @@ void unitTests() {
 
 
 
+
+
+
+/**************** local function *********************/
 
 
 /*

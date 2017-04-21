@@ -20,6 +20,8 @@
 #include "hbscheme.h"
 #include "eval.h"
 #include "environment.h"
+#include "memory.h"
+#include "printer.h"
 
 
 

@@ -16,6 +16,7 @@
 #include "hbscheme.h"
 #include "environment.h"
 #include "memory.h"
+#include "printer.h"
 
 
 

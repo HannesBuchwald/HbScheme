@@ -1,18 +1,11 @@
-//
-// Created by admin on 20.04.17.
-//
-
-#ifndef HBSCHEME_EVAL_H
-#define HBSCHEME_EVAL_H
-
-#endif //HBSCHEME_EVAL_H
-
-
-
-/**************** variables & objects & constants *********************/
-
-#define INITIAL_EVAL_STACK_SIZE     1024
-
+/*
+ * eval.h
+ *
+ * Author:       Hannes Buchwald
+ * Project:      hbScheme Interpreter (University of Media)
+ * Version:      0.0.2
+ * Last edit:    20.04.2017
+*/
 
 
 /**************** global functions *********************/

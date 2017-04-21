@@ -8,15 +8,11 @@
 */
 
 
-/******* definitions ********/
-
-
-
 /******* global functions ********/
-
 
 void unitTests();
 void breakpoint();
+
 
 
 

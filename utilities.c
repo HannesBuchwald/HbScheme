@@ -1,13 +1,27 @@
+/*
+ * hbscheme.c
+ *
+ * Author:       Hannes Buchwald
+ * Project:      hbScheme Interpreter (University of Media)
+ * Version:      0.0.2
+ * Last edit:    20.04.2017
+ *
+ */
+
+
+
+/**************** includes *********************/
+
 #include "hbscheme.h"
-
-#include <time.h>
+#include "utilities.h"
+#include "printer.h"
 #include <sys/time.h>
-#include <sys/timeb.h>
 
-#define USE_GETTIMEOFDAY
 
-long
-millisecondTime() {
+
+/**************** global functions *********************/
+
+long millisecondTime() {
     long millis;
 
 #ifdef USE_GETTIMEOFDAY

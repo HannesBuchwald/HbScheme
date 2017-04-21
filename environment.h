@@ -8,18 +8,6 @@
  *
  */
 
-#ifndef HBSCHEME_ENVIRONMENT_H
-#define HBSCHEME_ENVIRONMENT_H
-
-#endif //HBSCHEME_ENVIRONMENT_H
-
-
-
-/**************** constants *********************/
-
-#define INITIAL_ENVIRONMENT_SIZE    3
-
-
 
 
 /**************** structs *********************/
@@ -38,13 +26,8 @@ struct environment {
 
 
 
-/**************** local functions *********************/
-
-static struct environment* allocateEnvironment(int size);
-void resizeEnvironment();
 
 
-static inline unsigned long H(SCM_OBJ o);
 
 
 /**************** global functions *********************/
@@ -54,6 +37,27 @@ void initWellKnownObjects();
 
 SCM_OBJ get_binding(SCM_OBJ key);
 void add_binding(SCM_OBJ key, SCM_OBJ value);
+
+
+
+
+
+
+
+
+
+/**************** local functions *********************/
+
+static struct environment* allocateEnvironment(int size);
+void resizeEnvironment();
+
+
+static inline unsigned long H(SCM_OBJ o);
+
+
+
+
+
 
 
 

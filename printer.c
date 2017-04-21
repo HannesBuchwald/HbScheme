@@ -1,8 +1,25 @@
+/*
+ * printer.c
+ *
+ * Author:       Hannes Buchwald
+ * Project:      hbScheme Interpreter (University of Media)
+ * Version:      0.0.2
+ * Last edit:    21.04.2017
+*/
+
+
+
+/**************** includes *********************/
+
 #include "hbscheme.h"
 #include "printer.h"
 
-static void
-scm_printListRest(FILE* outFile, SCM_OBJ theCons, enum printHowEnum printHow) {
+
+
+
+/**************** local functions *********************/
+
+static void scm_printListRest(FILE* outFile, SCM_OBJ theCons, enum printHowEnum printHow) {
     scm_print(outFile, car(theCons), printHow);
     if (isNil(cdr(theCons))) {
         fprintf(outFile, ")");
@@ -19,14 +36,19 @@ scm_printListRest(FILE* outFile, SCM_OBJ theCons, enum printHowEnum printHow) {
     scm_printListRest(outFile, cdr(theCons), printHow);
 }
 
-void
-scm_printList(FILE* outFile, SCM_OBJ theCons, enum printHowEnum printHow) {
+
+
+
+/**************** global functions *********************/
+
+
+
+void scm_printList(FILE* outFile, SCM_OBJ theCons, enum printHowEnum printHow) {
     fprintf(outFile, "(");
     scm_printListRest(outFile, theCons, printHow);
 }
 
-void
-scm_print(FILE* outFile, SCM_OBJ o, enum printHowEnum printHow) {
+void scm_print(FILE* outFile, SCM_OBJ o, enum printHowEnum printHow) {
     switch (tagOf(o)) {
         case TAG_INT:
             fprintf(outFile, "%ld", intValue(o));
@@ -94,11 +116,10 @@ scm_print(FILE* outFile, SCM_OBJ o, enum printHowEnum printHow) {
     }
 }
 
-
-
-
-
 void fatal(char* msg, char* fileName, int lineNr) {
     fprintf(stderr, "%s:%d: %s\n", fileName, lineNr, msg);
     abort();
 }
+
+
+

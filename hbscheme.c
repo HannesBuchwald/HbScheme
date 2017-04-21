@@ -12,10 +12,11 @@
 
 /**************** includes *********************/
 
-
 #include "hbscheme.h"
 #include "setjmp.h"
 
+#include "printer.h"
+#include "reader.h"
 #include "test.h"
 #include "eval.h"
 #include "environment.h"
@@ -27,13 +28,6 @@
 
 /**************** variables & objects *********************/
 
-
-#ifdef DEBUG
-# define DBG_PRINT(x) fprintf x
-#else
-# define DBG_PRINT(x) /* as nothing */
-#endif
-
 static jmp_buf getMeBackToRepl;
 SCM_OBJ input, result;
 
@@ -42,19 +36,15 @@ SCM_OBJ input, result;
 
 /**************** main function *********************/
 
-
-/*
- * called from the system
- */
+// start point
 int main() {
-
 
     // init and test the system
     init();
     unitTests();
 
 
-    // user interaction
+    // userInteraction
     printf("Welcome to hbScheme\n");
 
 

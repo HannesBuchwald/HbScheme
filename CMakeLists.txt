@@ -22,8 +22,8 @@ set(SOURCE_FILES
         environment.c
         test.c
         reader.c
-        utils.c
-        eval.c printer.c constants.h printer.h eval.h)
+        utilities.c
+        eval.c printer.c constants.h printer.h eval.h utilities.h)
 
 
 

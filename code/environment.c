@@ -13,10 +13,10 @@
 
 /**************** includes *********************/
 
-#include "hbscheme.h"
-#include "environment.h"
-#include "memory.h"
-#include "printer.h"
+#include "../header/hbscheme.h"
+#include "../header/environment.h"
+#include "../header/memory.h"
+#include "../header/printer.h"
 
 
 

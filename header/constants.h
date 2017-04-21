@@ -25,10 +25,6 @@
 
 
 
-
-
-
-
 /******* Compare ********/
 
 
@@ -55,8 +51,8 @@
 
 
 
-/******* DEBUG ********/
 
+/******* DEBUG ********/
 
 #ifdef DEBUG
 # define DBG_PRINT(x) fprintf x

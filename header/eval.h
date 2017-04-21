@@ -14,7 +14,7 @@ void initEvalStack();
 void initBuiltinFunctions();
 SCM_OBJ scm_eval(SCM_OBJ expr);
 
-
+CBOOL trace_flag;
 
 /**************** local functions *********************/
 
@@ -35,6 +35,9 @@ static inline void DROP(int n);
 static void builtinPlus(int numArgs);
 static void builtinMinus(int numArgs);
 static void builtinMultiplication(int numArgs);
+static void builtinDivide(int numArgs);
+
+
 
 static void builtinEq(int numArgs);
 static void builtinEqNr(int numArgs);
@@ -52,6 +55,10 @@ static void builtinDefine(SCM_OBJ args);
 static void builtinLambda(SCM_OBJ args);
 static void builtinQuote(SCM_OBJ args);
 static void builtinIf(SCM_OBJ args);
+
+
+
+
 
 
 

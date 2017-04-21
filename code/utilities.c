@@ -12,9 +12,9 @@
 
 /**************** includes *********************/
 
-#include "hbscheme.h"
-#include "utilities.h"
-#include "printer.h"
+#include "../header/hbscheme.h"
+#include "../header/utilities.h"
+#include "../header/printer.h"
 #include <sys/time.h>
 
 

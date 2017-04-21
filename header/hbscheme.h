@@ -11,7 +11,6 @@
 
 /**************** includes *********************/
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,19 +18,7 @@
 
 
 
-
-
-
-/**************** type definition *********************/
-
-
-typedef int CBOOL;
-typedef int SCM_CHAR;
-typedef union scm_object *SCM_OBJ;
-typedef SCM_OBJ (*SCM_OBJFUNC)();
-// typedef int (*INTFUNC)();
-typedef void (*VOIDFUNC)();
-// typedef void* (*VOIDPTRFUNC)();
+/**************** enums *********************/
 
 enum scm_tag_enum {
     TAG_INT = 0,
@@ -50,6 +37,24 @@ enum scm_tag_enum {
     MAX_TAG
 };
 
+
+
+
+/**************** type definition *********************/
+
+
+typedef int CBOOL;
+typedef int SCM_CHAR;
+typedef union scm_object *SCM_OBJ;
+typedef SCM_OBJ (*SCM_OBJFUNC)();
+// typedef int (*INTFUNC)();
+typedef void (*VOIDFUNC)();
+// typedef void* (*VOIDPTRFUNC)();
+
+
+
+
+
 typedef enum scm_tag_enum scm_tag;
 
 struct scm_any {
@@ -64,22 +69,6 @@ struct scm_integer {
 struct scm_float {
     scm_tag tag;
     double fVal;
-};
-
-struct scm_builtinFunc {
-    scm_tag tag;
-    VOIDFUNC code;
-};
-
-struct scm_builtinSyntax {
-    scm_tag tag;
-    VOIDFUNC code;
-};
-
-struct scm_userDefinedFunc {
-    scm_tag tag;
-    SCM_OBJ argList;
-    SCM_OBJ bodyList;
 };
 
 struct scm_special {
@@ -107,6 +96,22 @@ struct scm_cons {
     SCM_OBJ cdr;
 };
 
+struct scm_builtinFunc {
+    scm_tag tag;
+    VOIDFUNC code;
+};
+
+struct scm_builtinSyntax {
+    scm_tag tag;
+    VOIDFUNC code;
+};
+
+struct scm_userDefinedFunc {
+    scm_tag tag;
+    SCM_OBJ argList;
+    SCM_OBJ bodyList;
+};
+
 union scm_object {
     struct scm_any scm_any;
     struct scm_integer scm_integer;
@@ -126,6 +131,20 @@ union scm_object {
 
 
 
+/**************** global functions *********************/
+
+
+void backToRepl();
+
+
+
+
+/**************** local functions *********************/
+
+void init();
+
+
+
 
 
 //
@@ -138,17 +157,12 @@ extern SCM_OBJ SCM_VOID;
 extern SCM_OBJ SCM_EOF;
 extern SCM_OBJ SCM_quoteSymbol;
 
-//
-// globals
-//
-extern CBOOL trace_flag;
-
 
 
 //
 // useful inline functions
 //
-static inline scm_tag  tagOf(SCM_OBJ obj) {
+static inline scm_tag tagOf(SCM_OBJ obj) {
     return (obj->scm_any.tag);
 }
 
@@ -225,19 +239,5 @@ static inline SCM_OBJ cdr(SCM_OBJ obj) {
 
 
 
-
-
-
-/**************** global functions *********************/
-
-
-void backToRepl();
-
-
-
-
-/**************** local functions *********************/
-
-void init();
 
 

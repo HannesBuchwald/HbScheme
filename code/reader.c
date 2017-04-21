@@ -14,10 +14,10 @@
 
 
 
-#include "hbscheme.h"
-#include "reader.h"
-#include "memory.h"
-#include "printer.h"
+#include "../header/hbscheme.h"
+#include "../header/reader.h"
+#include "../header/memory.h"
+#include "../header/printer.h"
 
 
 
@@ -43,6 +43,7 @@ SCM_OBJ scm_read(scm_stream inStream) {
 
     allocBuffer(&b, INITIAL_BUFFER_SIZE);
     nextChar = skipSeparators(inStream);
+
     if (nextChar == EOF_CHAR) {
         return SCM_EOF;
     }

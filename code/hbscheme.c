@@ -12,15 +12,15 @@
 
 /**************** includes *********************/
 
-#include "hbscheme.h"
+#include "../header/hbscheme.h"
 #include "setjmp.h"
 
-#include "printer.h"
-#include "reader.h"
-#include "test.h"
-#include "eval.h"
-#include "environment.h"
-#include "memory.h"
+#include "../header/printer.h"
+#include "../header/reader.h"
+#include "../header/test.h"
+#include "../header/eval.h"
+#include "../header/environment.h"
+#include "../header/memory.h"
 
 
 
@@ -41,7 +41,7 @@ int main() {
 
     // init and test the system
     init();
-    unitTests();
+   // unitTests();
 
 
     // userInteraction

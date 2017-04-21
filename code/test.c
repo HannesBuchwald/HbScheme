@@ -11,13 +11,13 @@
 /**************** includes *********************/
 
 
-#include "hbscheme.h"
-#include "test.h"
-#include "environment.h"
-#include "eval.h"
-#include "memory.h"
-#include "reader.h"
-#include "utilities.h"
+#include "../header/hbscheme.h"
+#include "../header/test.h"
+#include "../header/environment.h"
+#include "../header/eval.h"
+#include "../header/memory.h"
+#include "../header/reader.h"
+#include "../header/utilities.h"
 
 
 

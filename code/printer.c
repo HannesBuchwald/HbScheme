@@ -11,8 +11,8 @@
 
 /**************** includes *********************/
 
-#include "hbscheme.h"
-#include "printer.h"
+#include "../header/hbscheme.h"
+#include "../header/printer.h"
 
 
 

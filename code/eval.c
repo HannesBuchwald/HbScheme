@@ -17,11 +17,11 @@
 
 /**************** includes *********************/
 
-#include "hbscheme.h"
-#include "eval.h"
-#include "environment.h"
-#include "memory.h"
-#include "printer.h"
+#include "../header/hbscheme.h"
+#include "../header/eval.h"
+#include "../header/environment.h"
+#include "../header/memory.h"
+#include "../header/printer.h"
 
 
 
@@ -66,8 +66,8 @@ void initBuiltinFunctions() {
 
 
     //ToDo builtinFunction "/"
-
-    // ----------
+    fn = new_builtinFunc(builtinDivide);
+    add_binding(new_symbol("/"), fn);
 
 
     fn = new_builtinFunc(builtinEq);
@@ -115,7 +115,8 @@ void initBuiltinFunctions() {
 
 SCM_OBJ scm_eval(SCM_OBJ expr) {
     scm_eval2(expr);
-    return POP();
+
+     return POP();
 }
 
 
@@ -293,20 +294,57 @@ static void builtinMinus(int numArgs) {
 }
 
 static void builtinMultiplication(int numArgs) {
-    int product = 1;
+    float quotient = 1;
+
+
+
+
+    while (--numArgs >= 0) {
+        SCM_OBJ valueOfNextArg;
+
+        valueOfNextArg = POP();
+
+        if (isInteger(valueOfNextArg)) {
+            quotient = intValue(valueOfNextArg) / quotient;
+        } else {
+            scm_error("(devide): non numeric argument: ",valueOfNextArg);
+        }
+    }
+
+    PUSH( new_integer(quotient) );
+}
+
+
+
+
+
+static void builtinDivide(int numArgs) {
+
+
+    //TODO implement float for better calculation
+    int quotient = 1;
+
+    if (numArgs == 0) {
+        scm_error("(divide): at least one argument expected",NULL);
+    }
+
+    /*if (numArgs > 2) {
+        scm_error("(divide): to many arguments - only two are allowed",NULL);
+    }*/
 
     while (--numArgs >= 0) {
         SCM_OBJ valueOfNextArg;
 
         valueOfNextArg = POP();
         if (isInteger(valueOfNextArg)) {
-            product = product * intValue(valueOfNextArg);
+            quotient =  intValue(valueOfNextArg) / quotient;
         } else {
-            scm_error("(*): non numeric argument: ",valueOfNextArg);
+            scm_error("(devide): non numeric argument: ",valueOfNextArg);
         }
     }
-    PUSH( new_integer(product) );
+    PUSH( new_integer(quotient) );
 }
+
 
 
 

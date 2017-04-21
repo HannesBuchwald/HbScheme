@@ -17,13 +17,13 @@ set(CMAKE_CXX_STANDARD 11)
 
 
 set(SOURCE_FILES
-        hbscheme.c
-        memory.c
-        environment.c
-        test.c
-        reader.c
-        utilities.c
-        eval.c printer.c constants.h printer.h eval.h utilities.h)
+        code/hbscheme.c
+        code/memory.c
+        code/environment.c
+        code/test.c
+        code/reader.c
+        code/utilities.c
+        code/eval.c code/printer.c header/constants.h header/printer.h header/eval.h header/utilities.h)
 
 
 
